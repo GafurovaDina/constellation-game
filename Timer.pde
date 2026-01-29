@@ -1,5 +1,7 @@
 class Timer {
-  int duration, start, remaining;
+  int duration;
+  int start;
+  int remaining;
   boolean active;
   
   Timer(int duration) {

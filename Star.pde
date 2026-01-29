@@ -1,5 +1,7 @@
 class Star {
-  float x, y, r;
+  float x;
+  float y;
+  float r;
   boolean selected;
   int index;
   

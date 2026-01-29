@@ -1,5 +1,6 @@
 class GameManager {
-  boolean active, over;
+  boolean active;
+  boolean over;
   int points;
   Timer timer;
   
