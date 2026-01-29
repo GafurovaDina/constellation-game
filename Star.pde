@@ -1,9 +1,7 @@
 class Star {
-  float x;  // Position relative to the sky
-  float y;
-  float r;  // Size
+  float x, y, r;
   boolean selected;
-  int index; // Unique identifier
+  int index;
   
   Star(float x, float y, float r, int index) {
     this.x = x;
@@ -13,39 +11,31 @@ class Star {
     this.index = index;
   }
   
-  // Display star at position adjusted for sky offset
-  void display(float skyOffsetX, float skyOffsetY) {
-    float screenX = x - skyOffsetX;
-    float screenY = y - skyOffsetY;
+  void display(float ox, float oy) {
+    float sx = x - ox;
+    float sy = y - oy;
     
-    // Only draw if visible in window
-    if (screenX >= -20 && screenX <= width + 20 && 
-        screenY >= -20 && screenY <= height + 20) {
+    if (sx >= -20 && sx <= width + 20 && sy >= -20 && sy <= height + 20) {
       noStroke();
-      
+      fill(255);
       if (selected) {
-        fill(255, 255, 100); // Yellow for selected
-        ellipse(screenX, screenY, r * 3, r * 3);
+        ellipse(sx, sy, r * 3, r * 3);
       } else {
-        fill(255);
-        ellipse(screenX, screenY, r, r);
+        ellipse(sx, sy, r, r);
       }
     }
   }
   
-  // Check if mouse is over star (accounting for sky offset)
-  boolean isMouseOver(float mx, float my, float skyOffsetX, float skyOffsetY) {
-    float screenX = x - skyOffsetX;
-    float screenY = y - skyOffsetY;
-    return dist(mx, my, screenX, screenY) <= max(r * 2, 15);
+  boolean isMouseOver(float mx, float my, float ox, float oy) {
+    float sx = x - ox;
+    float sy = y - oy;
+    return dist(mx, my, sx, sy) <= max(r * 2, 15);
   }
   
-  // Check if star is currently visible in window
-  boolean isVisible(float skyOffsetX, float skyOffsetY) {
-    float screenX = x - skyOffsetX;
-    float screenY = y - skyOffsetY;
-    return screenX >= -20 && screenX <= width + 20 && 
-           screenY >= -20 && screenY <= height + 20;
+  boolean isVisible(float ox, float oy) {
+    float sx = x - ox;
+    float sy = y - oy;
+    return sx >= -20 && sx <= width + 20 && sy >= -20 && sy <= height + 20;
   }
   
   void select() {
