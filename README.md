@@ -14,15 +14,14 @@ A constellation creation game where you are up against time to connect stars bef
 - **Enter**: Save your current constellation and earn points
 - **R**: Reset your current constellation (clears selection without saving)
 - **Q**: Quit the game early
-- **Space**: Pause/unpause the star movement
 
 ### Objective
-Connect stars by clicking them in sequence to form constellations. Save your constellations before they drift off the edge of the screen to earn points.
+Collect points by connecting stars. Click them in sequence to form constellations, then save your constellations before they drift off the edge of the screen.
 
 ## Game Mechanics
 
 ### Star Movement
-The starfield constantly drifts to the left and slightly downward, gradually accelerating as the timer progresses. This creates an increasing challenge as the game continues.
+The starfield constantly drifts to the left, gradually accelerating as the timer progresses. This creates an increasing challenge as the game continues.
 
 ### Creating Constellations
 - Click on stars to connect them in sequence
@@ -31,14 +30,14 @@ The starfield constantly drifts to the left and slightly downward, gradually acc
 - Stars cannot be reused once they're part of a saved constellation
 
 ### Saving Constellations
-Press **Enter** to save your constellation, but be careful:
+Press **Enter** to save your constellation
 - If any star in your constellation touches the screen edge when you press Enter, the constellation won't be saved
 - You must save before stars drift off screen
-- Once saved, constellations remain visible even when touching the edges
+- Once saved constellations remain visible even when touching the edges
 - Saved constellations disappear only when completely off-screen
 
 ### Losing a Constellation
-Your current (unsaved) constellation will be automatically cleared if:
+Your current (unsaved) constellation will be automatically cleared if
 - Any star in the selection touches the edge of the screen
 - You press R to manually reset
 
@@ -86,4 +85,5 @@ The scoring is exponential, so larger constellations earn significantly more poi
 - `GameManager.pde` - Game state and UI management
 - `Star.pde` - Star object class
 - `Timer.pde` - Timer functionality
+
 
