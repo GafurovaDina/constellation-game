@@ -2,13 +2,11 @@ Star[] stars;
 ArrayList<Star> selected = new ArrayList<Star>();
 ArrayList<ArrayList<Star>> saved = new ArrayList<ArrayList<Star>>();
 int total = 1500;
-
 float offsetX = 0;
 float offsetY = 0;
 float speed = 0.8;
 float skyW = 5000;
 float skyH = 3000;
-
 GameManager game;
 
 void setup() {
@@ -48,10 +46,9 @@ void draw() {
 }
 
 void play() {
-  float p = game.timer.progress();          // 0..1 over the whole game
-  float eased = p * p * (3 - 2 * p);        // smoothstep
-  float currentSpeed = lerp(0.2, 1, eased);  // start 0, end 0.8 (tune end value)
-
+  float p = game.timer.progress();
+  float eased = p * p * (3 - 2 * p);
+  float currentSpeed = lerp(0.2, 1, eased);
   offsetX += currentSpeed;
   offsetY += currentSpeed * 0.3;
   
@@ -100,9 +97,9 @@ void play() {
 }
 
 boolean touchingEdge(Star s) {
-  float sx = s.x - offsetX;
-  float sy = s.y - offsetY;
-  return sx <= 0 || sx >= width || sy <= 0 || sy >= height;
+  float x = s.x - offsetX;
+  float y = s.y - offsetY;
+  return x <= 0 || x >= width || y <= 0 || y >= height;
 }
 
 void mousePressed() {
@@ -131,10 +128,28 @@ void keyPressed() {
     selected.clear();
   }
   
+  if (key == 'q' || key == 'Q') {
+    game.quitGame();
+    for (Star s : selected) s.unselect();
+    selected.clear();
+  }
+  
   if (key == ENTER || key == RETURN) {
     if (selected.size() >= 2) {
-      game.addPoints(selected.size());
-      saved.add(new ArrayList<Star>(selected));
+      boolean edge = false;
+      for (Star s : selected) {
+        if (touchingEdge(s)) {
+          edge = true;
+          break;
+        }
+      }
+      
+      if (!edge) {
+        game.addPoints(selected.size());
+        saved.add(new ArrayList<Star>(selected));
+      }
+      
+      for (Star s : selected) s.unselect();
       selected.clear();
     }
   }

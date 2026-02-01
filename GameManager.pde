@@ -3,19 +3,31 @@ class GameManager {
   boolean over;
   int points;
   Timer timer;
+  String msg;
+  boolean quit;
   
   GameManager() {
     active = false;
     over = false;
     points = 0;
     timer = new Timer(30);
+    msg = "";
+    quit = false;
   }
   
   void startGame() {
     active = true;
     over = false;
     points = 0;
+    quit = false;
     timer.start();
+  }
+  
+  void quitGame() {
+    active = false;
+    over = true;
+    quit = true;
+    msg = "Done already?";
   }
   
   void update() {
@@ -24,6 +36,7 @@ class GameManager {
       if (timer.isFinished()) {
         active = false;
         over = true;
+        msg = getMsg();
       }
     }
   }
@@ -44,8 +57,30 @@ class GameManager {
       case 8: return 640;
       case 9: return 810;
       case 10: return 1000;
-      default: return 0;
+      case 11: return 1210;
+      case 12: return 1440;
+      case 13: return 1690;
+      case 14: return 1960;
+      case 15: return 2250;
+      case 16: return 2560;
+      case 17: return 2890;
+      case 18: return 3240;
+      case 19: return 3610;
+      case 20: return 4000;
+      default: return num > 20 ? 4000 : 0;
     }
+  }
+  
+  String getMsg() {
+    String[] msgs = {
+      "Stellar journey complete!",
+      "Your constellations shine bright!",
+      "The stars remember your path!",
+      "A cosmic adventure!",
+      "You've mapped the heavens!",
+      "Beautiful stargazing!"
+    };
+    return msgs[int(random(msgs.length))];
   }
   
   void displayHUD() {
@@ -55,10 +90,9 @@ class GameManager {
     textSize(12);
     text("Points: " + points, width - 10, 35);
     
-    textAlign(LEFT);
+    textAlign(CENTER);
     textSize(12);
-    text("Press Enter to save constellation", 10, height - 30);
-    text("Press R to reset", 10, height - 15);
+    text("Enter to save   |   R to reset   |   Q to quit", width/2, height - 20);
   }
   
   void displayStart() {
@@ -82,8 +116,8 @@ class GameManager {
   void displayEnd() {
     fill(255);
     textAlign(CENTER, CENTER);
-    textSize(32);
-    text("Game Over!", width/2, height/2 - 50);
+    textSize(28);
+    text(msg, width/2, height/2 - 50);
     
     textSize(24);
     text("Final Score: " + points, width/2, height/2);
